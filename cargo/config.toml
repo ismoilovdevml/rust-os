@@ -1,7 +1,7 @@
 [package]
-name = "crate_name"
+name = "rust_os"
 version = "0.1.0"
-authors = ["Author Name <author@example.com>"]
+authors = ["Ismoilovdev <ismoilovdev@gmail.com>"]
 
 # the profile used for `cargo build`
 [profile.dev]
