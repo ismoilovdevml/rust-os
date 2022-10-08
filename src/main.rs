@@ -1,5 +1,6 @@
 #![no_std] 
-#![no_main] 
+#![no_main]
+#![feature(asm)]
 
 use core::panic::PanicInfo;
 
