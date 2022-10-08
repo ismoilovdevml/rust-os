@@ -9,4 +9,14 @@ panic = "abort" # disable stack unwinding on panic
 
 # the profile used for `cargo build --release`
 [profile.release]
-panic = "abort" # disable stack unwinding on panic
+panic = "abort"
+
+[unstable]
+build-std-features = ["compiler-builtins-mem"]
+build-std = ["core", "compiler_builtins"] # disable stack unwinding on panic
+
+[build]
+target = "x86_64-rust_os.json"
+
+[target.'cfg(target_os = "none")']
+runner = "bootimage runner"
