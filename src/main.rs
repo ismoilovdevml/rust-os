@@ -3,6 +3,8 @@
 
 use core::panic::PanicInfo;
 
+mod vga_buffer;
+
 static SALOM: &[u8] = b"Hello Rust";
 
 #[no_mangle]
