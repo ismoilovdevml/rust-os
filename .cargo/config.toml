@@ -1,19 +1,6 @@
-[package]
-name = "rust_os"
-version = "0.1.0"
-authors = ["Ismoilovdev <ismoilovdev@gmail.com>"]
-
-# the profile used for `cargo build`
-[profile.dev]
-panic = "abort" # disable stack unwinding on panic
-
-# the profile used for `cargo build --release`
-[profile.release]
-panic = "abort"
-
 [unstable]
+build-std = ["core", "compiler_builtins"]
 build-std-features = ["compiler-builtins-mem"]
-build-std = ["core", "compiler_builtins"] # disable stack unwinding on panic
 
 [build]
 target = "x86_64-rust_os.json"
