@@ -1,12 +1,12 @@
 #![no_std]
-#[no_main]
+#![no_main]
 
 use core::panic::PanicInfo;
 
 mod vga_buffer;
 
 #[no_mangle]
-pub extern "C" fn _star() -> ! {
+pub extern "C" fn _start() -> ! {
     println!("Birinchi Kernel{}", "!");
 
     loop {}
