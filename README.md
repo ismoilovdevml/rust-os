@@ -1,5 +1,7 @@
 # rust_os
 
+[![CI](https://github.com/ismoilovdevml/rust-os/actions/workflows/ci.yml/badge.svg)](https://github.com/ismoilovdevml/rust-os/actions/workflows/ci.yml)
+
 A small x86_64 kernel written in Rust. It boots on bare metal, handles CPU
 exceptions and hardware interrupts, manages its own virtual memory and heap, and
 runs `async`/`await` tasks on a cooperative scheduler — in about 1,000 lines of
