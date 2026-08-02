@@ -1,29 +1,63 @@
 [package]
 name = "rust_os"
-version = "0.1.0"
-edition = "2018"
+version = "0.2.0"
+edition = "2024"
+description = "A small x86_64 kernel written in Rust"
+license = "MIT"
+repository = "https://github.com/ismoilovdevml/rust-os"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+bootloader = { version = "0.9.31", features = ["map_physical_memory"] }
+x86_64 = "0.15.5"
+spin = "0.9.8"
+uart_16550 = "0.6.0"
+pic8259 = "0.11.0"
+pc-keyboard = "0.9.0"
+linked_list_allocator = "0.10.5"
 
+[dependencies.crossbeam-queue]
+version = "0.3.13"
+default-features = false
+features = ["alloc"]
+
+[dependencies.conquer-once]
+version = "0.4.0"
+default-features = false
+
+[dependencies.futures-util]
+version = "0.3.33"
+default-features = false
+features = ["alloc"]
+
+# Integration tests under `tests/` link against the crate, not its dependency
+# graph, so anything they name directly has to be repeated here.
+[dev-dependencies]
+bootloader = { version = "0.9.31", features = ["map_physical_memory"] }
+x86_64 = "0.15.5"
+spin = "0.9.8"
+
+# Each of these asserts a single fatal event, so neither can use the normal
+# multi-test harness.
 [[test]]
 name = "should_panic"
 harness = false
 
-[dependencies]
-bootloader = "0.9.8"
-volatile = "0.2.6"
-spin = "0.5.2"
-x86_64 = "0.14.2"
-uart_16550 = "0.2.0"
+[[test]]
+name = "stack_overflow"
+harness = false
 
-[dependencies.lazy_static]
-version = "1.0"
-features = ["spin_no_std"]
+[profile.dev]
+panic = "abort"
 
+[profile.release]
+panic = "abort"
 
 [package.metadata.bootimage]
+run-args = ["-serial", "stdio"]
 test-args = [
-    "-device", "isa-debug-exit,iobase=0xf4,iosize=0x04", "-serial", "stdio",
-    "-display", "none"
+    "-device", "isa-debug-exit,iobase=0xf4,iosize=0x04",
+    "-serial", "stdio",
+    "-display", "none",
 ]
-test-success-exit-code = 33
+test-success-exit-code = 33 # (0x10 << 1) | 1
+test-timeout = 60
